@@ -1,4 +1,4 @@
-FR--한 줄 주석 : ctrl + /
+--한 줄 주석 : ctrl + /
 /*범위 주석 : ctrl + shift + /
  
  *SQL 1개 실행 : CTRL+ENTER
@@ -13,4 +13,4 @@ GRANT CONNECT, RESOURCE TO WORKBOOK;
 --객체 생성 공간 할당
 ALTER USER WORKBOOK
 DEFAULT TABLESPACE SYSTEM
-QUOTA UNLIMITED ON SYSTEM;
+QUOTA UNLIMITED OsN SYSTEM;
