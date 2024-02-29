@@ -117,11 +117,14 @@ SELECT STUDENT_NO, STUDENT_NAME
 FROM TB_STUDENT 
 WHERE STUDENT_NO NOT LIKE 'A%';
 		
+-- 학번이 A517178인 한아름 학생의 학점 총 평점을 구하는 SQL문을 작성하시오.
+-- 단, 이때 출력 화면의 헤더는 "평점"이라고 찍히게 하고,
+-- 점수는 반올림하여 소수점 이하 한자리까지만 표시한다.
 
-
-
-
-
+SELECT *
+FROM TB_STUDENT ts , TB_GRADE tg 
+WHERE ts.STUDENT_NO = tg.STUDENT_NO;
+--AND STUDENT_NO = 'A517178';
 
 
 
