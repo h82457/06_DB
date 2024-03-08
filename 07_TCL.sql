@@ -61,7 +61,7 @@ SELECT * FROM DEPARTMENT3;
 UPDATE DEPARTMENT3 
 SET DEPT_TITLE = '전략기획팀',
 	LOCATION_ID = 'L3'
-WHERE DEPT_ID = 'L3';
+WHERE DEPT_ID = 'D9';
 
  
 /* 현재 트랜잭션에 저장된 DML(INSERT, UPDATE) 구문을 실제로 DB에 반영 -> COMMIT */
@@ -69,4 +69,62 @@ WHERE DEPT_ID = 'L3';
 COMMIT;
 
 /* 트랜잭션에 저장된 내용 삭제 -> ROLLBACK */
+
 ROLLBACK;
+-- ㄴ> COMMIT, ROLLBACK 사이에 수행한 DML X => 변화 X
+
+----------------------------------------------------------------
+
+-- DEPT_ID 가 'D0'인 행을 삭제
+DELETE FROM DEPARTMENT3 
+WHERE DEPT_ID = 'D0';
+
+-- DEPT_ID 가 'D9'인 행을 삭제
+DELETE FROM DEPARTMENT3 
+WHERE DEPT_ID = 'D9';
+
+-- DEPT_ID 가 'D8'인 행을 삭제
+DELETE FROM DEPARTMENT3 
+WHERE DEPT_ID = 'D8';
+
+SELECT * FROM DEPARTMENT3;
+
+/* 트랜젝션에 저장된 DML(DELETE 3번) AHEN TKRWP */
+ROLLBACK;
+
+SELECT * FROM DEPARTMENT3;
+----------------------------------------------------------------
+
+/* SAVEPOINT */
+
+
+DELETE FROM DEPARTMENT3 
+WHERE DEPT_ID = 'D0';
+
+SAVEPOINT "SP1"; -- "SP1" 저장 지점 설정
+
+-- DEPT_ID 가 'D9'인 행을 삭제
+DELETE FROM DEPARTMENT3 
+WHERE DEPT_ID = 'D9'; 
+
+SAVEPOINT "SP2"; -- "SP2" 저장 지점 설정
+
+-- DEPT_ID 가 'D8'인 행을 삭제
+DELETE FROM DEPARTMENT3 
+WHERE DEPT_ID = 'D8';
+
+SAVEPOINT "SP3"; -- "SP3" 저장 지점 설정
+
+-- DEPARTMENT3 전체 삭제
+DELETE FROM DEPARTMENT3;
+
+SELECT * FROM DEPARTMENT3;
+
+-- "SP3" 까지 롤백
+ROLLBACK TO "SP3";
+ROLLBACK TO "SP2";
+ROLLBACK TO "SP1";
+
+-- 'D0' 도 복구 -> 그냥 ROLLBACK
+ROLLBACK;
+SELECT * FROM DEPARTMENT3 d ;
